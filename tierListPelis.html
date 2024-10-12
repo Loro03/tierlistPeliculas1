@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tierlist de Películas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1e1e1e;
+            color: #ffffff;
+            text-align: center;
+            position: relative; /* Para posicionar la luz */
+            overflow: hidden; /* Evitar scroll por la luz */
+        }
+        h1 {
+            margin-top: 20px;
+            color: #ff6666;
+        }
+        h2 {
+            color: #ffcccc;
+        }
+        .tierlist {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .tier {
+            border: 2px solid #ff4d4d;
+            background-color: #2e2e2e;
+            width: 150px;
+            height: 200px;
+            padding: 10px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            align-items: center;
+            overflow-y: auto;
+        }
+        .tier-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #ff9999;
+        }
+        .movie {
+            background-color: #ff6666;
+            color: #1e1e1e;
+            border: 1px solid #ff4d4d;
+            padding: 8px;
+            margin: 5px;
+            width: 100%;
+            text-align: center;
+            border-radius: 5px;
+            opacity: 0; /* Inicialmente invisible */
+            transform: translateY(20px); /* Comienza desplazado hacia abajo */
+            animation: fadeInUp 0.5s forwards; /* Aplicar animación */
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1; /* Hacer visible */
+                transform: translateY(0); /* Regresar a la posición original */
+            }
+        }
+
+        /* Estilos para la luz de palomitas */
+        .light {
+            width: 100px; /* Tamaño de la luz */
+            height: 100px; /* Tamaño ajustado */
+            position: absolute;
+            background-image: url('imagenes/palomitas.png'); /* Imagen de palomitas local */
+            background-size: contain; /* Ajustar a contener */
+            background-repeat: no-repeat; /* No repetir imagen */
+            top: 125%; /* Posición inicial */
+            left: 50%; /* Posición inicial */
+            transform: translate(-50%, -50%); /* Centrar en la posición */
+            animation: twinkle 1s infinite; /* Animación de parpadeo */
+        }
+
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0.5; /* Parpadeo */
+            }
+            50% {
+                opacity: 1; /* Más brillantes en el medio */
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Tierlist de Películas ❤️</h1>
+    <div class="tierlist">
+        <div class="tier" id="tier9-10">
+            <div class="tier-title">GOD</div>
+        </div>
+        <div class="tier" id="tier8-9">
+            <div class="tier-title">Estan increibles</div>
+        </div>
+        <div class="tier" id="tier7-8">
+            <div class="tier-title">Me gustan</div>
+        </div>
+        <div class="tier" id="tier6-7">
+            <div class="tier-title">Caca</div>
+        </div>
+    </div>
+
+    <h2>No tengas miedo (No me mates por las notas)</h2>
+    <button onclick="showNextMovie()">Pulsa aquí si te gusta kayn(y para ver las pelis)</button>
+
+    <!-- Luz de palomitas -->
+    <div class="light" id="light"></div>
+
+    <script>
+        let peliculas = [
+            { id: "ponyo", name: "Ponyo (10/10) ", tier: "tier9-10", mensaje: "me encanta ponyo AJAJA ,soske enserio deprimirse por perder un pez que viste dos días? 🤨, son muy monos" },
+            { id: "corpseBride", name: "La Novia Cadáver (9/10)", tier: "tier9-10", mensaje: " vaya huevos tiene la madre de victoria en la cabeza , muy triste el mundo de los vivos perezon de mundo,la vdd. Es bonito que emily le deje ser feliz peeeero emili toxica god>" },
+            { id: "totoro", name: "Mi Vecino Totoro (8/10)", tier: "tier8-9", mensaje: "Totoro es muy mono, y el Gatobús es GOD por dios lo vistes?." },
+            { id: "spiritedAway", name: "El Viaje de Chihiro (8.50/10)", tier: "tier8-9", mensaje: "Viaje de chihiro esta bien  cosas a recalcar hay que decire a chihiro que no tiene que dejar entrar a extraños , porque madre mia la que lio , luego que pedazo de bebe tiene la señora JAJAAJJAJA" },
+            { id: "frankenweenie", name: "Frankenweenie (8/10)", tier: "tier8-9", mensaje: "ya me la habia visto asique solo la recordé viendola por encima de nuevo , entonces me gustó me trajo a la infancia fe nuevo 8/10 , posdata sparky es el favorito del guion no tengo pruebas pero tampoco dudas." },
+            { id: "nightmareBeforeChristmas", name: "Pesadilla antes de Navidad (7/10)", tier: "tier7-8", mensaje: "me cae mal Jack solo piensa en el #pobre sally" },
+            { id: "howlsMovingCastle", name: "El Castillo Ambulante (7.30/10)", tier: "tier7-8", mensaje: "El espantapájaros es god, y eso de que se convierta en un rubio guapo mal, me gustaba el espantapajaros con sombrero TT, aunque la película es rara tiene su toque , me gusta." },
+            { id: "broma", name: "No hay ninguna aquí😜", tier: "tier6-7",mensaje:"😱" }
+        ];
+
+        let currentIndex = 0;
+
+        function showNextMovie() {
+            if (currentIndex < peliculas.length) {
+                let pelicula = peliculas[currentIndex];
+                let movieElement = document.createElement("div");
+                movieElement.className = "movie";
+                movieElement.textContent = pelicula.name;
+
+                document.getElementById(pelicula.tier).appendChild(movieElement);
+                alert(pelicula.mensaje); // Mostrar mensaje de la película
+
+                currentIndex++;
+            } else {
+                // Mensaje de despedida final
+                alert("Me gustó verlas jeje 🤗");
+            }
+        }
+    </script>
+</body>
+</html>
